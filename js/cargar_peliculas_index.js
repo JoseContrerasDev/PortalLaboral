@@ -30,7 +30,7 @@ const cargarPeliculasTendencia = async (page = 1) => {
     movies.forEach(movie => {
         // creo el ancla
         const ancla = document.createElement('a');
-        ancla.href = './pages/detalle.html';
+        ancla.href = './paginas/detalle.html';
         // creo el div pelicula
         const pelicula = document.createElement('div');
         pelicula.classList.add('pelicula');
