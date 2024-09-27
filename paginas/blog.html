@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Registro Institucional</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <link rel="stylesheet" href="../css/estilos2.css">
+    <script src="https://kit.fontawesome.com/f7fb471b65.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body class="bodyRegistrarse">
+    <header class="headerRegistrarse">
+        <a class="anclaLogo" href="../index.html">
+            <i class="fas fa-film" aria-hidden="true"></i>
+            <span>INICIO</span>
+        </a>
+    </header>
+    <main id="main" class="main">
+        <!-- Caja de formulario -->
+        <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+            <form id="dataForm">
+                <h2 class="tituloRegistrarse">Ingresar blog</h2>
+                <div>
+                    <input type="text" placeholder="TITULO" id="nombre" name="nombre">
+                    <div class="error-text"></div>
+                </div>
+                <div>
+                    <input type="text" placeholder="Escribir nota" id="apellido" name="apellido">
+                    <div class="error-text"></div>
+                </div>
+               
+                    <!-- Agregar opción para subir imagen -->
+                    <input type="file" id="rolImage" name="rolImage" accept="image/*">
+                    <!-- <label for="rolImage">Subir imagen del rol</label> -->
+            </div>
+                <div>
+                    <button type="button" id="saveBtn">Guardar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Caja de datos guardados -->
+        <aside>
+            <section>
+                <h2>Blogs Activos</h2>
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Encabezado</th>
+                            <th>Nota</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se mostrarán los datos -->
+                    </tbody>
+                </table>
+            </section>
+        </aside>
+    </main>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="../js/crudblog.js"></script>
+</body>
+</html>
