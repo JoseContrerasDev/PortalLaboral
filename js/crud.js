@@ -1,73 +1,89 @@
-// crud.js
-
-// Función para guardar datos
 document.getElementById('saveBtn').addEventListener('click', function() {
-    const nombre = document.getElementById('nombre').value;
-    const apellido = document.getElementById('apellido').value;
-    const rol = document.getElementById('rol').value;
-    const email = document.getElementById('email').value;
-    const presencialidad = document.getElementById('presencialidad').value;
-    const pais = document.getElementById('pais').value;
+    const form = document.getElementById('dataForm');
+    const formData = new FormData(form);
 
-    const datos = {
-        nombre, apellido, rol, email, presencialidad, pais
-    };
+    // Obtén los valores del formulario
+    const nombre = formData.get('nombre');
+    const apellido = formData.get('apellido');
+    const rol = formData.get('rol');
+    const email = formData.get('email');
+    const presencialidad = formData.get('presencialidad');
+    const pais = formData.get('pais');
+    const imageFile = formData.get('rolImage');
+    const editIndex = form.getAttribute('data-edit-index'); // Saber si estamos modificando
 
-    let registros = JSON.parse(localStorage.getItem('registros')) || [];
-    registros.push(datos);
-    localStorage.setItem('registros', JSON.stringify(registros));
-    mostrarDatos();
+    // Verifica si se ha cargado una imagen
+    if (imageFile && imageFile.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const imageDataUrl = event.target.result;
+
+            // Si estamos editando una fila, la actualizamos
+            if (editIndex !== null) {
+                const row = document.getElementById('dataTable').getElementsByTagName('tbody')[0].rows[editIndex];
+                row.cells[0].textContent = nombre;
+                row.cells[1].textContent = apellido;
+                row.cells[2].textContent = rol;
+                row.cells[3].textContent = email;
+                row.cells[4].textContent = presencialidad;
+                row.cells[5].textContent = pais;
+                row.cells[6].innerHTML = `<img src="${imageDataUrl}" alt="Imagen del rol" width="50">`;
+            } else {
+                // Agregar nueva fila si no estamos editando
+                const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                newRow.innerHTML = `
+                    <td>${nombre}</td>
+                    <td>${apellido}</td>
+                    <td>${rol}</td>
+                    <td>${email}</td>
+                    <td>${presencialidad}</td>
+                    <td>${pais}</td>
+                    <td><img src="${imageDataUrl}" alt="Imagen del rol" width="50"></td>
+                    <td>
+                        <button class="editBtn">Modificar</button>
+                        <button class="deleteBtn">Eliminar</button>
+                    </td>
+                `;
+
+                // Añadir funcionalidad a los botones de modificar y eliminar
+                newRow.querySelector('.editBtn').addEventListener('click', function() {
+                    loadRowDataToForm(newRow);
+                });
+
+                newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+                    newRow.remove();
+                });
+            }
+
+            // Limpiar formulario
+            form.reset();
+            form.removeAttribute('data-edit-index');
+        };
+
+        reader.readAsDataURL(imageFile);
+
+    } else {
+        alert('Por favor, selecciona una imagen válida.');
+    }
 });
 
-// Función para mostrar datos en la tabla
-function mostrarDatos() {
-    const registros = JSON.parse(localStorage.getItem('registros')) || [];
-    const tbody = document.querySelector('#dataTable tbody');
-    tbody.innerHTML = '';
+// Función para cargar los datos de la fila en el formulario
+function loadRowDataToForm(row) {
+    const form = document.getElementById('dataForm');
+    const cells = row.getElementsByTagName('td');
 
-    registros.forEach((registro, index) => {
-        const fila = document.createElement('tr');
+    // Llenar el formulario con los datos de la fila seleccionada
+    form.nombre.value = cells[0].textContent;
+    form.apellido.value = cells[1].textContent;
+    form.rol.value = cells[2].textContent;
+    form.email.value = cells[3].textContent;
+    form.presencialidad.value = cells[4].textContent;
+    form.pais.value = cells[5].textContent;
 
-        fila.innerHTML = `
-            <td>${registro.nombre}</td>
-            <td>${registro.apellido}</td>
-            <td>${registro.rol}</td>
-            <td>${registro.email}</td>
-            <td>${registro.presencialidad}</td>
-            <td>${registro.pais}</td>
-            <td>
-                <button onclick="editarRegistro(${index})">Editar</button>
-                <button onclick="eliminarRegistro(${index})">Eliminar</button>
-            </td>
-        `;
-        tbody.appendChild(fila);
-    });
+    // Guardar el índice de la fila
+    const rowIndex = row.rowIndex - 1; // Ajuste por el encabezado de la tabla
+    form.setAttribute('data-edit-index', rowIndex);
 }
-
-// Función para editar un registro
-function editarRegistro(index) {
-    const registros = JSON.parse(localStorage.getItem('registros'));
-    const registro = registros[index];
-
-    document.getElementById('nombre').value = registro.nombre;
-    document.getElementById('apellido').value = registro.apellido;
-    document.getElementById('rol').value = registro.rol;
-    document.getElementById('email').value = registro.email;
-    document.getElementById('presencialidad').value = registro.presencialidad;
-    document.getElementById('pais').value = registro.pais;
-
-    registros.splice(index, 1);
-    localStorage.setItem('registros', JSON.stringify(registros));
-    mostrarDatos();
-}
-
-// Función para eliminar un registro
-function eliminarRegistro(index) {
-    let registros = JSON.parse(localStorage.getItem('registros'));
-    registros.splice(index, 1);
-    localStorage.setItem('registros', JSON.stringify(registros));
-    mostrarDatos();
-}
-
-// Mostrar datos al cargar la página
-document.addEventListener('DOMContentLoaded', mostrarDatos);

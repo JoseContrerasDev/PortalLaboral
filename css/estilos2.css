@@ -1,3 +1,6 @@
+
+
+
 *{
     margin: 0;
     padding: 0;
@@ -54,7 +57,7 @@ body{
         padding: 1.5rem 0;
         .anclaLogo{
             text-decoration: none;
-            color: #ffffff;
+            color: #494949;
             font-weight: 700;
             font-size: 1.2rem;
             /*animacion hover*/
@@ -840,3 +843,227 @@ hr{
     margin: 0 auto;
     margin-top: 40px;
 }
+
+/* Estilos generales para aplicar la fuente */
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.seccionRegistrarse {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px; /* Ajuste del ancho del formulario */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustar el tamaño de los títulos */
+.tituloRegistrarse {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los inputs */
+.seccionRegistrarse input[type="text"],
+.seccionRegistrarse input[type="email"],
+.seccionRegistrarse select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.seccionRegistrarse input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Botones y elementos interactivos */
+.seccionRegistrarse button,
+.seccionRegistrarse input[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.seccionRegistrarse button:hover,
+.seccionRegistrarse input[type="button"]:hover {
+    background-color: #4cae4c;
+}
+
+/* Tabla para mostrar datos */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Adaptar el formulario en dispositivos móviles */
+@media (max-width: 500px) {
+    .seccionRegistrarse {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .main {
+        padding: 20px;
+    }
+}/* Estilos generales */
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    height: 100vh;
+}
+
+.seccionRegistrarse {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%; /* Ajustar ancho */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+/* Caja para mostrar los datos */
+aside {
+    background-color: #000000;
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%; /* Ajustar ancho */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+/* Estilos para los inputs */
+.seccionRegistrarse input[type="text"],
+.seccionRegistrarse input[type="email"],
+.seccionRegistrarse select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+/* Tabla para mostrar los datos guardados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #222222;
+    padding: 8px;
+}
+
+th {
+    background-color: #1f1f1f;
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+    }
+    
+    .seccionRegistrarse, aside {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+table img {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* #dataForm {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+} */
+
+aside {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    padding-left: 20px;
+}
+
+aside table {
+    width: 100%;
+}
+
+
+
+

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro | Registro Institucional</title>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos2.css">
     <script src="https://kit.fontawesome.com/f7fb471b65.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
@@ -18,17 +18,10 @@
         </a>
     </header>
     <main id="main" class="main">
+        <!-- Caja de formulario -->
         <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
             <form id="dataForm">
                 <h2 class="tituloRegistrarse">Ingresar datos</h2>
-                <div>
-                    <input type="text" placeholder="Nombre de empresa" id="nombre" name="nombre">
-                    <div class="error-text"></div>
-                </div>
-                <div>
-                    <input type="text" placeholder="Breve descripcion de la empresa" id="rol" name="rol">
-                    <div class="error-text"></div>
-                </div>
                 <div>
                     <input type="text" placeholder="ROL" id="nombre" name="nombre">
                     <div class="error-text"></div>
@@ -37,7 +30,10 @@
                     <input type="text" placeholder="Breve descripcion del rol" id="apellido" name="apellido">
                     <div class="error-text"></div>
                 </div>
-              
+                <div>
+                    <input type="text" placeholder="Breve descripcion de la empresa" id="rol" name="rol">
+                    <div class="error-text"></div>
+                </div>
                 <div>
                     <input type="email" placeholder="Requerimientos excluyentes " id="email" name="email">
                     <div class="error-text"></div>
@@ -66,6 +62,19 @@
                     </select>
                     <div class="error-text"></div>
                 </div>
+                <!-- <div class="terminos">
+                    <input class="check" type="checkbox" id="terminos">
+                    <label class="textoCheck" for="terminos">Acepto términos y condiciones</label>
+                    <div class="error-text"></div>
+                </div> -->
+                <!-- <div>
+                    <button type="button" id="saveBtn">Guardar</button>
+                </div> -->
+                <div>
+                    <!-- Agregar opción para subir imagen -->
+                    <input type="file" id="rolImage" name="rolImage" accept="image/*">
+                    <!-- <label for="rolImage">Subir imagen del rol</label> -->
+                </div>
                 <div class="terminos">
                     <input class="check" type="checkbox" id="terminos">
                     <label class="textoCheck" for="terminos">Acepto términos y condiciones</label>
@@ -76,33 +85,35 @@
                 </div>
             </form>
         </section>
-        <section>
-            <h2>Datos Guardados</h2>
-            <table id="dataTable" border="1">
-                <thead>
-                    <tr>
-                        <th>Rol</th>
-                        <th>Descripción</th>
-                        <th>Empresa</th>
-                        <th>Email</th>
-                        <th>Presencialidad</th>
-                        <th>País</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se mostrarán los datos -->
-                </tbody>
-            </table>
-        </section>
+
+        <!-- Caja de datos guardados -->
+        <aside>
+            <section>
+                <h2>Ofertas Activas</h2>
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Descripción</th>
+                            <th>Empresa</th>
+                            <th>Email</th>
+                            <th>Presencialidad</th>
+                            <th>País</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se mostrarán los datos -->
+                    </tbody>
+                </table>
+            </section>
+        </aside>
     </main>
+    
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
-    <aside>
-            <script src="../js/crud.js"></script> 
-    </aside>
-
+    <script src="../js/crud.js"></script>
 </body>
 </html>
