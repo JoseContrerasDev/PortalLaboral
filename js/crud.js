@@ -131,7 +131,77 @@ function deleteRowAndData(row) {
     const existingData = JSON.parse(localStorage.getItem('formData')) || [];
     existingData.splice(rowIndex, 1);
     localStorage.setItem('formData', JSON.stringify(existingData));
+    
 }
+// Función para añadir datos a una nueva fila en la tabla
+function addNewRow(data) {
+    const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    
+    newRow.innerHTML = `
+        <td class="tachable">${data.nombre}</td>
+        <td class="tachable">${data.apellido}</td>
+        <td class="tachable">${data.rol}</td>
+        <td class="tachable">${data.email}</td>
+        <td class="tachable">${data.presencialidad}</td>
+        <td class="tachable">${data.pais}</td>
+        <td><img src="${data.imageDataUrl}" alt="Imagen del rol" width="50"></td>
+        <td>
+            <button class="editBtn">Modificar</button>
+            <button class="deleteBtn">Eliminar</button>
+            <button class="tacharBtn">Tachar</button>
+        </td>
+    `;
+
+    // Añadir funcionalidad a los botones de modificar, eliminar y tachar
+    newRow.querySelector('.editBtn').addEventListener('click', function() {
+        loadRowDataToForm(newRow);
+    });
+
+    newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+        deleteRowAndData(newRow);
+    });
+
+    newRow.querySelector('.tacharBtn').addEventListener('click', function() {
+        toggleStrikeThrough(newRow);
+    });
+}
+
+// Función para tachar o destachar el texto de una fila
+function toggleStrikeThrough(row) {
+    const cells = row.getElementsByClassName('tachable');
+    const isStriked = cells[0].classList.contains('striked');
+
+    // Cambiar el estado de cada celda
+    for (let cell of cells) {
+        if (isStriked) {
+            cell.classList.remove('striked');
+        } else {
+            cell.classList.add('striked');
+        }
+    }
+
+    // Actualizar el estado en el Local Storage
+    const rowIndex = row.rowIndex - 1; // Ajuste por el encabezado de la tabla
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData[rowIndex].isStriked = !isStriked;
+    localStorage.setItem('formData', JSON.stringify(existingData));
+}
+
+// Función para cargar datos desde el Local Storage al iniciar la página
+function loadFromLocalStorage() {
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData.forEach(data => {
+        addNewRow(data);
+        // Marcar la fila si estaba tachada previamente
+        if (data.isStriked) {
+            const rows = document.getElementById('dataTable').getElementsByTagName('tbody')[0].rows;
+            const row = rows[rows.length - 1];
+            toggleStrikeThrough(row);
+        }
+    });
+}
+
 
 // Función para cargar datos desde el Local Storage al iniciar la página
 function loadFromLocalStorage() {

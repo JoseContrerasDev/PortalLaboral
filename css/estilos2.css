@@ -1064,6 +1064,10 @@ aside table {
     width: 100%;
 }
 
+.striked {
+    text-decoration: line-through;
+    color: grey;
+}
 
 
 

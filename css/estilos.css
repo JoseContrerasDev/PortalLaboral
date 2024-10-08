@@ -840,3 +840,7 @@ hr{
     margin: 0 auto;
     margin-top: 40px;
 }
+.striked {
+    text-decoration: line-through;
+    color: grey;
+}
