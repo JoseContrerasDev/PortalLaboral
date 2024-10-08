@@ -19,43 +19,24 @@ document.getElementById('saveBtn').addEventListener('click', function() {
         reader.onload = function(event) {
             const imageDataUrl = event.target.result;
 
-            // Si estamos editando una fila, la actualizamos
+            // Crear un objeto con los datos del formulario
+            const newData = {
+                nombre,
+                apellido,
+                rol,
+                email,
+                presencialidad,
+                pais,
+                imageDataUrl
+            };
+
+            // Guardar o actualizar los datos en el local storage
             if (editIndex !== null) {
-                const row = document.getElementById('dataTable').getElementsByTagName('tbody')[0].rows[editIndex];
-                row.cells[0].textContent = nombre;
-                row.cells[1].textContent = apellido;
-                row.cells[2].textContent = rol;
-                row.cells[3].textContent = email;
-                row.cells[4].textContent = presencialidad;
-                row.cells[5].textContent = pais;
-                row.cells[6].innerHTML = `<img src="${imageDataUrl}" alt="Imagen del rol" width="50">`;
+                updateDataInLocalStorage(editIndex, newData);
+                updateRow(editIndex, newData);
             } else {
-                // Agregar nueva fila si no estamos editando
-                const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-                const newRow = table.insertRow();
-
-                newRow.innerHTML = `
-                    <td>${nombre}</td>
-                    <td>${apellido}</td>
-                    <td>${rol}</td>
-                    <td>${email}</td>
-                    <td>${presencialidad}</td>
-                    <td>${pais}</td>
-                    <td><img src="${imageDataUrl}" alt="Imagen del rol" width="50"></td>
-                    <td>
-                        <button class="editBtn">Modificar</button>
-                        <button class="deleteBtn">Eliminar</button>
-                    </td>
-                `;
-
-                // Añadir funcionalidad a los botones de modificar y eliminar
-                newRow.querySelector('.editBtn').addEventListener('click', function() {
-                    loadRowDataToForm(newRow);
-                });
-
-                newRow.querySelector('.deleteBtn').addEventListener('click', function() {
-                    newRow.remove();
-                });
+                addDataToLocalStorage(newData);
+                addNewRow(newData);
             }
 
             // Limpiar formulario
@@ -69,6 +50,47 @@ document.getElementById('saveBtn').addEventListener('click', function() {
         alert('Por favor, selecciona una imagen válida.');
     }
 });
+
+// Función para añadir datos a una nueva fila en la tabla
+function addNewRow(data) {
+    const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    
+    newRow.innerHTML = `
+        <td>${data.nombre}</td>
+        <td>${data.apellido}</td>
+        <td>${data.rol}</td>
+        <td>${data.email}</td>
+        <td>${data.presencialidad}</td>
+        <td>${data.pais}</td>
+        <td><img src="${data.imageDataUrl}" alt="Imagen del rol" width="50"></td>
+        <td>
+            <button class="editBtn">Modificar</button>
+            <button class="deleteBtn">Eliminar</button>
+        </td>
+    `;
+
+    // Añadir funcionalidad a los botones de modificar y eliminar
+    newRow.querySelector('.editBtn').addEventListener('click', function() {
+        loadRowDataToForm(newRow);
+    });
+
+    newRow.querySelector('.deleteBtn').addEventListener('click', function() {
+        deleteRowAndData(newRow);
+    });
+}
+
+// Función para actualizar una fila existente
+function updateRow(index, data) {
+    const row = document.getElementById('dataTable').getElementsByTagName('tbody')[0].rows[index];
+    row.cells[0].textContent = data.nombre;
+    row.cells[1].textContent = data.apellido;
+    row.cells[2].textContent = data.rol;
+    row.cells[3].textContent = data.email;
+    row.cells[4].textContent = data.presencialidad;
+    row.cells[5].textContent = data.pais;
+    row.cells[6].innerHTML = `<img src="${data.imageDataUrl}" alt="Imagen del rol" width="50">`;
+}
 
 // Función para cargar los datos de la fila en el formulario
 function loadRowDataToForm(row) {
@@ -87,3 +109,37 @@ function loadRowDataToForm(row) {
     const rowIndex = row.rowIndex - 1; // Ajuste por el encabezado de la tabla
     form.setAttribute('data-edit-index', rowIndex);
 }
+
+// Función para añadir datos al Local Storage
+function addDataToLocalStorage(data) {
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData.push(data);
+    localStorage.setItem('formData', JSON.stringify(existingData));
+}
+
+// Función para actualizar datos en el Local Storage
+function updateDataInLocalStorage(index, data) {
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData[index] = data;
+    localStorage.setItem('formData', JSON.stringify(existingData));
+}
+
+// Función para eliminar una fila y sus datos del Local Storage
+function deleteRowAndData(row) {
+    const rowIndex = row.rowIndex - 1; // Ajuste por el encabezado de la tabla
+    row.remove();
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData.splice(rowIndex, 1);
+    localStorage.setItem('formData', JSON.stringify(existingData));
+}
+
+// Función para cargar datos desde el Local Storage al iniciar la página
+function loadFromLocalStorage() {
+    const existingData = JSON.parse(localStorage.getItem('formData')) || [];
+    existingData.forEach(data => {
+        addNewRow(data);
+    });
+}
+
+// Cargar datos al inicio
+document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
