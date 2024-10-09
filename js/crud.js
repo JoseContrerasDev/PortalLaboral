@@ -201,6 +201,7 @@ function loadFromLocalStorage() {
         }
     });
 }
+// prueba
 
 
 // Función para cargar datos desde el Local Storage al iniciar la página
